@@ -1,0 +1,1 @@
+this is a bus tracking application to help citizens track live location of the upcoming bus, ETA , neareast bus stop, aminities at the stop and get a hassale free online ticket.
