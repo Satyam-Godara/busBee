@@ -21,10 +21,14 @@ async function getAllBus(req,res) {
 
 async function addBus(req,res) {
     const {rgnNo, modelName, busCode} = req.body || "";
-    rgnNo = rgnNo.toUpperCase();
-    busCode = busCode.toUpperCase();
 
-    const existing = await bus.findOne({$or :[ {rgnNo : rgnNo}, {busCode : busCode}] });
+    if(!rgnNo || !busCode || !modelName){
+        return res.status(400).json({message : "rgnNo, buscode and modelName are required!"});
+    }
+    const formatRgnNo = rgnNo.toUpperCase();
+    const formatBusCode = busCode.toUpperCase();
+
+    const existing = await bus.findOne({$or :[ {rgnNo : formatRgnNo}, {busCode : formatBusCode}] });
 
     if(existing){
         return res.status(409).json({message : "Bus already exist"});
@@ -32,9 +36,9 @@ async function addBus(req,res) {
 
     try{
         const bus = await bus.create({
-            rgnNo: rgnNo,
+            rgnNo: formatRgnNo,
             modelName: modelName,
-            busCode : busCode
+            busCode : formatBusCode
         });
 
         return res.status(201).json({id: bus._id, rgnNo: bus.rgnNo, busCode:bus.busCode, modelName:bus.modelName});
