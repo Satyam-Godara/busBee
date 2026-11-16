@@ -17,9 +17,9 @@ app.use(express.json());
 
 // api routes.
 app.use('/api/bus',     busRoute);
-// app.use('/api/busstop', busstopRoute);
+app.use('/api/busstop', busstopRoute);
 // app.use('/api/route',   routeRoute);
-// app.use('/api/trip',    tripRoute);
+app.use('/api/trip',    tripRoute);
 // app.use('/api/user',    userRoute);
 
 // healthcheck
